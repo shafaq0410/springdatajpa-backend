@@ -49,7 +49,8 @@ public class DepartmentEmpService {
     	System.out.println("Showing the dpartment and it's employee ");
     	for(Department dept : drepo.findAll()) {
     		System.out.println("The department name "+ dept.getName() );
-    		for(Employee employee : dept.getEmpList()) {
+    		for(Employee employee : dept.getEmployees()
+) {
     			System.out.println(" -Emp : "+ employee.getName());
     		}
     	}
@@ -153,14 +154,14 @@ public class DepartmentEmpService {
 
             // Remove the employee from the current department's employee list
             if (currentDept != null) {
-                currentDept.getEmpList().remove(employee);
+                currentDept.getEmployees().remove(employee);
             }
 
             // Update the employee's department
             employee.setDept(dept);
 
             // Add the employee to the new department's employee list
-            dept.getEmpList().add(employee);
+            dept.getEmployees().add(employee);
 
             // Save the updated employee and department
             Erepo.save(employee); // Saves changes for the employee
@@ -179,17 +180,21 @@ public class DepartmentEmpService {
         }
     }
     
-    
     // method to search emp By name and print its department  
-    public void searchEmpByName(String empName){
-           		Employee employee = Erepo.findByName(empName);
-           		if(employee != null) {
-           			System.out.println("The employee with name "+ empName +" is present in the deptartment "+ employee.getDept().getName());
-           		}
-           		else {
-					System.out.println("Employee with given name not found !");
-				}
-	}
-
+public void searchEmpByName(String empName){
+    Employee employee = Erepo.findByName(empName);
+    if(employee != null) {
+        // FIX: Check if department exists before accessing it
+        if(employee.getDept() != null) {
+            System.out.println("The employee with name "+ empName +" is present in the department "+ employee.getDept().getName());
+        } else {
+            System.out.println("The employee with name "+ empName +" exists but is not assigned to any department!");
+        }
+    }
+    else {
+        System.out.println("Employee with given name not found !");
+    }
+}
        
+
 }

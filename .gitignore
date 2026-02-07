@@ -1,6 +1,15 @@
-/target/
+# Java
 *.class
+
+# Logs
 *.log
+
+# Build
+target/
+
+# IDEs
 .idea/
 .vscode/
+
+# Env
 .env
