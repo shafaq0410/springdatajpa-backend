@@ -1,4 +1,4 @@
-## 🔗 Backend Repository
+## 🔗 Frontend Repository
 
 This project uses a separate backend built with **Spring Boot (Spring Data JPA)**.
 
